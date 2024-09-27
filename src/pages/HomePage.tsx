@@ -1,18 +1,27 @@
 import React from "react";
-import ToggleTheme from "@/components/ToggleTheme";
-import { useTranslation } from "react-i18next";
-import LangToggle from "@/components/LangToggle";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Login from "./login/Login";
+import Loading from "./loading/Loading";
+import Sidebar from "./dashboard/Sidebar";
+import PasswordResetRequest from "./login/PasswordResetRequest";
+import PasswordReset from "./login/ResetPassword";
+import { Greeting } from "./dashboard/Greeting";
+import DevisLandingPage from "./devis/devisLandingPage";
 
-export default function HomePage() {
-    const { t } = useTranslation();
-
+const HomePage: React.FC = () => {
     return (
-        <>
-            <div className="flex h-screen flex-col items-center justify-center gap-2">
-                <h1 className="text-4xl font-bold">{t("title")}</h1>
-                <LangToggle />
-                <ToggleTheme />
-            </div>
-        </>
+        <Router>
+            <Routes>
+                <Route path="/" element={<Loading />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/greeting" element={<Greeting />} />
+                <Route path="/dashboard" element={<Sidebar />} />
+                <Route path="/devis" element={<DevisLandingPage />} />
+                <Route path="/request-password-reset" element={<PasswordResetRequest />} />
+                <Route path="/reset-password" element={<PasswordReset />} />
+            </Routes>
+        </Router>
     );
-}
+};
+
+export default HomePage;
